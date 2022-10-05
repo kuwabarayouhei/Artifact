@@ -12,3 +12,4 @@
 */
 
 Route::get('/', 'Theft_carController@index');
+Route::get('/posts/{post}', 'PostController@show');
