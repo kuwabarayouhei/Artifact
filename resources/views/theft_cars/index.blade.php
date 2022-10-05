@@ -12,7 +12,7 @@
             @foreach ($theft_cars as $theft_car)
                 <div class='theft_car'>
                     <h2 class='title'>
-                        <a href="/posts/{{ $post->id }}">{{ $post->title }}</a>
+                        <a href="/theft_cars/{{ $theft_car->id }}">{{ $theft_car->title }}</a>
                     </h2>
                     <p class='model'>{{ $theft_car->model }}</p>
                 </div>
