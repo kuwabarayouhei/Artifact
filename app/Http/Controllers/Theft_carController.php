@@ -13,7 +13,7 @@ class Theft_carController extends Controller
     }
 
     public function show(Theft_car $theft_car)
-    {
+    {   
         return view('theft_cars/show')->with(['theft_car' => $theft_car]);
     }
     
@@ -22,11 +22,17 @@ class Theft_carController extends Controller
         return view('theft_cars/create');
     }
     
-    public function store(Theft_car $theft_car,PostRequest $request )
+    public function store(Theft_car $theft_car, PostRequest $request )
     {
         $input = $request['theft_car'];
         $theft_car->fill($input)->save();
         return redirect('/theft_cars/' . $theft_car->id);
+    }
+    
+    public function delete(Theft_car $theft_car)
+    {
+        $theft_car->delete();
+        return redirect('/');
     }
     
 }

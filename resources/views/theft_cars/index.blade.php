@@ -8,7 +8,7 @@
     </head>
     <body>
         <h1>盗難車対策掲示板</h1>
-         <a href='/theft_cars/create'>create</a>
+         <a href='/theft_cars/create'>新規作成</a>
         <div class='theft_cars'>
             @foreach ($theft_cars as $theft_car)
                 <div class='theft_car'>
