@@ -32,7 +32,10 @@
                 <h3>盗難時の状況</h3>
                 <p>{{ $theft_car->situation }}</p>
                 <h3>その他の情報</h3>
-                <p>{{ $theft_car->information }}</p>  
+                <p>{{ $theft_car->information }}</p> 
+                @foreach ($theft_car->images as $image)
+                    <img class='image' width="200" height="200" src="{{ $image->path }}">
+                @endforeach
             </div>
         </div>
         @foreach ($theft_car->comments as $comment)

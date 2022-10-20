@@ -2,14 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Theft_car;
 use App\Http\Requests\PostRequest;
+use Storage;
+use App\Theft_car;
+use App\Theft_carImage;
 
 class Theft_carController extends Controller
 {
     public function index(Theft_car $theft_car)
-    {
-        return view('theft_cars/index')->with(['theft_cars' => $theft_car->getPaginateByLimit()]);  
+    {   
+        //$theft_car=$theft_car->getPaginateByLimit();
+        $theft_car_image = $theft_car::with('images');  // リレーション先を引っ張る
+        return view('theft_cars/index')->with(['theft_cars'=>$theft_car_image->orderBy('updated_at', 'DESC')->paginate(5)]); 
+        
+        //return view('theft_cars/index')->with(['theft_cars' => $theft_car->getPaginateByLimit()]);  
     }
 
     public function show(Theft_car $theft_car)
@@ -26,6 +32,14 @@ class Theft_carController extends Controller
     {
         $input = $request['theft_car'];
         $theft_car->fill($input)->save();
+        //($theft_car);
+   
+        // imageテーブルには複数のpathを保存
+        foreach ($request->file('files') as $index=>$file) {
+        $path = Storage::disk('s3')->putFile('myprefix', $file['image'], 'public');
+        $theft_car->images()->create(['path' => Storage::disk('s3')->url($path)]);
+        }
+        
         return redirect('/theft_cars/' . $theft_car->id);
     }
     

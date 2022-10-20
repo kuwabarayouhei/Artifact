@@ -23,7 +23,6 @@ class CreateTheftCarsTable extends Migration
             $table->string('time', 50);
             $table->string('situation', 200);
             $table->text('information');
-            $table->string('image', 50)->nullable();
             $table->integer('user_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
